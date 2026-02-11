@@ -29,7 +29,7 @@ class BeeSwarmDecision:
         
         # Haaste - vähentää vahvuutta
         challenge_words = [
-            'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei', 
+            'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei', 'en', 
             'allergia', 'ongelma', 'ei pysty', 'gluteeni',
             'liian', 'huono', 'ei käy', 'ei gluteenitonta', 'en pysty'
         ]
