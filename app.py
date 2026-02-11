@@ -44,7 +44,7 @@ class BeeSwarmDecision:
         return {'type': 'kehitys', 'weight': 3}
     
     # Yhdistys - vahva lisäys
-    combine_words = ['yhdistetään', 'plus', 'ja', 'samalla']
+    combine_words = ['yhdistetään', 'plus', 'samalla']
     if any(word in text_lower for word in combine_words):
         return {'type': 'yhdistys', 'weight': 4}
     
