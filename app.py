@@ -24,16 +24,15 @@ class BeeSwarmDecision:
         }
         
     def classify_comment(self, text):
-        """Luokittele kommentti ja anna paino"""
-        text_lower = text.lower()
-        
-      # Haaste - vähentää vahvuutta 
+    """Luokittele kommentti ja anna paino"""
+    text_lower = text.lower()
+    
+    # Haaste - vähentää vahvuutta (KORJATTU)
     challenge_words = [
-        'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei tarjoa',
-        'allergia', 'ongelma', 'ei pysty', 'ei gluteeni', 
-        'ei sovi', 'liian kallis', 'huono', 'ei käy'
+        'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei', 
+        'allergia', 'ongelma', 'ei pysty', 'gluteeni',
+        'liian', 'huono', 'ei käy'
     ]
-    # Myös emojit 🚫❌🙅
     challenge_emojis = ['🚫', '❌', '🙅', '⛔']
     
     if any(word in text_lower for word in challenge_words) or any(emoji in text for emoji in challenge_emojis):
