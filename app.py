@@ -148,12 +148,17 @@ def process():
             'success': False,
             'error': str(e)
         }), 400
+        
+# ⭐ health-check
+@app.route('/health')
+def health():
+    return jsonify({'status': 'ok'}), 200
+
+@app.route('/api/process', methods=['POST'])
+def process():
+    # ... (kaikki aiempi koodi pysyy samana)
 
 if __name__ == '__main__':
     import os
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
-@app.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({"status": "healthy"}), 200
