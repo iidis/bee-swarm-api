@@ -24,32 +24,32 @@ class BeeSwarmDecision:
         }
         
     def classify_comment(self, text):
-    """Luokittele kommentti ja anna paino"""
-    text_lower = text.lower()
-    
-    # Haaste - vähentää vahvuutta (KORJATTU)
-    challenge_words = [
-        'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei', 
-        'allergia', 'ongelma', 'ei pysty', 'gluteeni',
-        'liian', 'huono', 'ei käy', 'ei gluteenitonta', 'en voi', 'en pysty'
-    ]
-    challenge_emojis = ['🚫', '❌', '🙅', '⛔']
-    
-    if any(word in text_lower for word in challenge_words) or any(emoji in text for emoji in challenge_emojis):
-        return {'type': 'haaste', 'weight': -2}
-    
-    # Kehitys - lisää vahvuutta
-    develop_words = ['voisiko', 'entä jos', 'kysyä', 'ehkä', 'voisi']
-    if any(word in text_lower for word in develop_words):
-        return {'type': 'kehitys', 'weight': 3}
-    
-    # Yhdistys - vahva lisäys
-    combine_words = ['yhdistetään', 'plus', 'samalla']
-    if any(word in text_lower for word in combine_words):
-        return {'type': 'yhdistys', 'weight': 4}
-    
-    # Tuki - perus lisäys
-    return {'type': 'tuki', 'weight': 2}
+        """Luokittele kommentti ja anna paino"""
+        text_lower = text.lower()
+        
+        # Haaste - vähentää vahvuutta
+        challenge_words = [
+            'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei', 
+            'allergia', 'ongelma', 'ei pysty', 'gluteeni',
+            'liian', 'huono', 'ei käy', 'ei gluteenitonta', 'en pysty'
+        ]
+        challenge_emojis = ['🚫', '❌', '🙅', '⛔']
+        
+        if any(word in text_lower for word in challenge_words) or any(emoji in text for emoji in challenge_emojis):
+            return {'type': 'haaste', 'weight': -2}
+        
+        # Kehitys - lisää vahvuutta
+        develop_words = ['voisiko', 'entä jos', 'kysyä', 'ehkä', 'voisi']
+        if any(word in text_lower for word in develop_words):
+            return {'type': 'kehitys', 'weight': 3}
+        
+        # Yhdistys - vahva lisäys
+        combine_words = ['yhdistetään', 'plus', 'samalla']
+        if any(word in text_lower for word in combine_words):
+            return {'type': 'yhdistys', 'weight': 4}
+        
+        # Tuki - perus lisäys
+        return {'type': 'tuki', 'weight': 2}
     
     def add_comment(self, idea_id, user, text):
         """Lisää kommentti idealle"""
@@ -109,9 +109,14 @@ def home():
         'status': 'online',
         'message': 'Mehiläisparvi API toimii!',
         'endpoints': {
-            '/api/process': 'POST - Käsittele päätöstä'
+            '/api/process': 'POST - Käsittele päätöstä',
+            '/health': 'GET - Healthcheck'
         }
     })
+
+@app.route('/health')
+def health():
+    return jsonify({'status': 'ok'}), 200
 
 @app.route('/api/process', methods=['POST'])
 def process():
@@ -148,15 +153,6 @@ def process():
             'success': False,
             'error': str(e)
         }), 400
-        
-# ⭐ health-check
-@app.route('/health')
-def health():
-    return jsonify({'status': 'ok'}), 200
-
-@app.route('/api/process', methods=['POST'])
-def process():
-    # ... (kaikki aiempi koodi pysyy samana)
 
 if __name__ == '__main__':
     import os
