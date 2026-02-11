@@ -31,7 +31,7 @@ class BeeSwarmDecision:
     challenge_words = [
         'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei', 
         'allergia', 'ongelma', 'ei pysty', 'gluteeni',
-        'liian', 'huono', 'ei käy'
+        'liian', 'huono', 'ei käy', 'ei gluteenitonta', 'en voi', 'en pysty'
     ]
     challenge_emojis = ['🚫', '❌', '🙅', '⛔']
     
