@@ -27,23 +27,30 @@ class BeeSwarmDecision:
         """Luokittele kommentti ja anna paino"""
         text_lower = text.lower()
         
-        # Haaste - vähentää vahvuutta
-        challenge_words = ['en voi', 'ei toimi', 'ei sovi', 'allergia', 'ongelma', 'ei pysty']
-        if any(word in text_lower for word in challenge_words):
-            return {'type': 'haaste', 'weight': -2}
-        
-        # Kehitys - lisää vahvuutta
-        develop_words = ['voisiko', 'entä jos', 'kysyä', 'ehkä', 'voisi']
-        if any(word in text_lower for word in develop_words):
-            return {'type': 'kehitys', 'weight': 3}
-        
-        # Yhdistys - vahva lisäys
-        combine_words = ['yhdistetään', 'plus', 'ja', 'samalla']
-        if any(word in text_lower for word in combine_words):
-            return {'type': 'yhdistys', 'weight': 4}
-        
-        # Tuki - perus lisäys
-        return {'type': 'tuki', 'weight': 2}
+      # Haaste - vähentää vahvuutta 
+    challenge_words = [
+        'en voi', 'ei toimi', 'ei sovi', 'ei ole', 'ei tarjoa',
+        'allergia', 'ongelma', 'ei pysty', 'ei gluteeni', 
+        'ei sovi', 'liian kallis', 'huono', 'ei käy'
+    ]
+    # Myös emojit 🚫❌🙅
+    challenge_emojis = ['🚫', '❌', '🙅', '⛔']
+    
+    if any(word in text_lower for word in challenge_words) or any(emoji in text for emoji in challenge_emojis):
+        return {'type': 'haaste', 'weight': -2}
+    
+    # Kehitys - lisää vahvuutta
+    develop_words = ['voisiko', 'entä jos', 'kysyä', 'ehkä', 'voisi']
+    if any(word in text_lower for word in develop_words):
+        return {'type': 'kehitys', 'weight': 3}
+    
+    # Yhdistys - vahva lisäys
+    combine_words = ['yhdistetään', 'plus', 'ja', 'samalla']
+    if any(word in text_lower for word in combine_words):
+        return {'type': 'yhdistys', 'weight': 4}
+    
+    # Tuki - perus lisäys
+    return {'type': 'tuki', 'weight': 2}
     
     def add_comment(self, idea_id, user, text):
         """Lisää kommentti idealle"""
